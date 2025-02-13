@@ -37,6 +37,23 @@ describe StringCalculator do
       digitsum = calculator.add("")
       digitsum.should eql 0
     end
+
+    it "should return the correct output for multiple delimeters" do
+      calculator = StringCalculator.new
+      digitsum = calculator.add("//[***][---]\n1***6***7---3")
+      digitsum.should eql 17
+    end
+
+    it "should return the correct output for new line between numbers" do
+      calculator = StringCalculator.new
+      digitsum = calculator.add("1\n2,3")
+      digitsum.should eql 6
+    end
+
+    it "should throw exception for alphabets" do
+      calculator = StringCalculator.new
+      expect { calculator.add("a,b,3")}.to raise_exception {|exp| exp.message.should eql "Alphabets not allowed a, b" }
+    end
   end
 
 

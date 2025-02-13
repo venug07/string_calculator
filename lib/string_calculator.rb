@@ -2,9 +2,21 @@ class StringCalculator
 
 
  def add(string_numbers="")
+    sepval = [","]
+    if string_numbers =~ /^\/\/.*/
+      seprtnum = string_numbers.split("//")[1].split("\n")[0]
+      sepval = seprtnum.split("][").map { |v| v.gsub("[",""); }
+      sepval.map! { |v| v.gsub("]",""); }
+    end
+    if string_numbers =~ /^\/\/.*/
+      string_numbers = string_numbers.split("\n")[1]
+    else
+      string_numbers = string_numbers.gsub "\n" , sepval[0]
+    end
+    sepval.each { |seprt| string_numbers = string_numbers.gsub seprt, ","}
+    @stringnumbers = string_numbers.split ","
     neg_values = []
-    if !string_numbers.empty?
-      @stringnumbers = string_numbers.split(',')
+    if !@stringnumbers.empty?
       @stringnumbers.each do |sn|
         neg_values << sn.to_i if sn.to_i < 0
       end
