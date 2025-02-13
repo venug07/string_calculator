@@ -1,20 +1,17 @@
 class StringCalculator
-
-
+  
  def add(string_numbers="")
-    sepval = [","]
-    if string_numbers =~ /^\/\/.*/
+     sepval = [","]
+     if string_numbers =~ /^\/\/.*/
       seprtnum = string_numbers.split("//")[1].split("\n")[0]
       sepval = seprtnum.split("][").map { |v| v.gsub("[",""); }
       sepval.map! { |v| v.gsub("]",""); }
-    end
-    if string_numbers =~ /^\/\/.*/
       string_numbers = string_numbers.split("\n")[1]
-    else
+     else
       string_numbers = string_numbers.gsub "\n" , sepval[0]
-    end
-    sepval.each { |seprt| string_numbers = string_numbers.gsub seprt, ","}
-    @stringnumbers = string_numbers.split ","
+     end
+     sepval.each { |seprt| string_numbers = string_numbers.gsub seprt, ","}
+     @stringnumbers = string_numbers.split ","
      neg_values = []
      alph_values = []
      if !@stringnumbers.empty?
@@ -35,9 +32,9 @@ class StringCalculator
        else
         raise Exception.new "Alphabets not allowed " + alph_values.join(", ")
        end
-    else
+     else
       return 0
-    end
+     end
  end
 
 end
